@@ -19,13 +19,22 @@ def start_receiver(host='localhost', port=9999, batch_size=32, learning_rate=0.0
         with conn:
             print(f"Connected by {addr}")
 
+            buffer = ""
+
             while True:
-                data = conn.recv(1024).decode()
-                if not data:
+                chunk = conn.recv(1024).decode()
+                if not chunk:
                     break
-                for line in data.strip().split('\n'):
-                    if line:
+
+                buffer += chunk
+
+                while '\n' in buffer:
+                    line, buffer = buffer.split('\n', 1)
+                    if line.strip():
                         row = line.strip().split(',')
+                        if len(row) != 7:
+                            print(f"Incomplete row: {row}")
+                            continue
                         row_data = preprocess_data(row)
                         X_train.append(row_data[:-1])
                         y_train.append(float(row_data[-1]))
