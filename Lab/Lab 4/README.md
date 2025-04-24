@@ -49,4 +49,8 @@ batch_size = 256         # Kích thước batch dữ liệu
 epochs = 100             # Số lượng epoch huấn luyện
 learning_rate = 0.001    # Tốc độ học của mô hình
 
+### 📂 Các file được tạo ra
 
+- **`model/trained_model.pkl`**: Mô hình học máy đã huấn luyện.
+
+- **`results/prediction_results.csv`**: Kết quả dự đoán với các chỉ số đánh giá và so sánh giữa giá trị thực tế và dự đoán.
